@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ProductScanner</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_create_cart">Create Cart</string>
+    <string name="checkout">Checkout</string>
+    <string name="cash_payment">Cash Payment</string>
+    <string name="generate_bill">Generate Bill</string>
+    <string name="qr_code">QR Code</string>
+    <string name="server_client_id">517799296397-i1klm64547rmijv9g80dvcvbfjmtd9s3.apps.googleusercontent.com</string>
+</resources>
