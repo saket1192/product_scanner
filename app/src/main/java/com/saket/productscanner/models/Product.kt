@@ -9,13 +9,13 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "product", indices = [Index(value = ["productId"], unique = true)])
 data class Product (
     @PrimaryKey(autoGenerate = false)
-    val productId: String,
-    val productName: String,
-    val dateAdded: String,
-    val dateModified: String,
-    val productDescription: String,
-    val quantity: Int,
-    val productCost: Double
+    var productId: String,
+    var productName: String,
+    var dateAdded: String,
+    var dateModified: String,
+    var productDescription: String,
+    var quantity: Int,
+    var productCost: Double
         ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",

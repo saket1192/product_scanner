@@ -18,6 +18,10 @@ class HomeViewModel(private val productRepository: ProductRepository) : ViewMode
         }
     }
 
+    fun updateProductQuantity(product: Product){
+            productRepository.updateQuantity(product)
+    }
+
 
 
 }

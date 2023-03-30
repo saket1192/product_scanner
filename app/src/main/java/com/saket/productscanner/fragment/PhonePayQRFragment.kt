@@ -67,6 +67,7 @@ class PhonePayQRFragment : Fragment() {
     private val binding get() = _binding
     private lateinit var phonePayViewModel: PhonePayViewModel
     var totalSum: Double = 0.0
+    var cgst_total: Double = 0.0
     private var productList: List<Product>? = null
     private lateinit var mDrive: Drive
 
@@ -111,7 +112,14 @@ class PhonePayQRFragment : Fragment() {
             totalSum += (it.quantity * it.productCost)
         }
 
-        totalSum += (2 * (totalSum * 0.09))
+        cgst_total = (totalSum * 0.09)
+
+        if (binding?.checkbox?.isChecked == true){
+            binding?.price?.text = "Total Price : Rs. ${String.format("%.2f", (totalSum + (2 * cgst_total)))}"
+        } else {
+            binding?.price?.text = "Total Price : Rs. ${String.format("%.2f", (totalSum))}"
+        }
+
 
         val transactionNote = "Test payment"
         val payeeName = "Rama Krishna Palavancha"
@@ -123,21 +131,36 @@ class PhonePayQRFragment : Fragment() {
         }
 
         binding?.btnCheckout?.setOnClickListener {
-            createPDF()
+            binding?.checkbox?.isChecked?.let { it1 -> createPDF(it1) }
+
         }
 
         binding?.btnCreateCart?.setOnClickListener {
-            createPDF()
+            binding?.checkbox?.isChecked?.let { it1 -> createPDF(it1) }
         }
 
         binding?.backButton?.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        binding?.checkbox?.setOnCheckedChangeListener{buttonView, isChecked ->
+            var amountTotal = 0.0
+            amountTotal = if (isChecked){
+                totalSum + (2 * cgst_total)
+            } else {
+                totalSum
+            }
+            binding?.price?.text = "Total Price : Rs. ${String.format("%.2f", amountTotal)}"
+            binding?.phonePayQr?.let {
+                generateAndSetPhonePeQRCodeToImageView(amountTotal, transactionNote, payeeName, phoneNumber,
+                    it
+                )
+            }
+        }
 
     }
 
-    private fun createPDF() {
+    private fun createPDF(isGst: Boolean) {
         lifecycleScope.launch(Dispatchers.Default) {
             try {
                 // Create a new PDF document
@@ -280,8 +303,11 @@ class PhonePayQRFragment : Fragment() {
                     amount += it.quantity * it.productCost
                 }
 
+                var cgstTotal = 0.0
+                if (isGst){
+                    cgstTotal  = amount * 0.09
+                }
 
-                val cgstTotal = amount * 0.09
                 // Add the CGST and SGST details
                 val cgst = PdfPCell(Paragraph("Add : CGST @ 9%", font))
                 cgst.colspan = 4

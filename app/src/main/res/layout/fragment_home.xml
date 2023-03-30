@@ -6,15 +6,43 @@
     tools:context=".fragment.HomeFragment">
 
 
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/app_title_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Product Scanner"
-        android:textSize="28sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="16dp"
-        android:fontFamily="@font/sf_pro_display_bold"/>
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:text="Product Scanner"
+            android:textSize="28sp"
+            android:maxLines="1"
+            android:paddingRight="10dp"
+            android:autoSizeTextType="uniform"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/sf_pro_display_bold"/>
+
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="Total : Rs. 0"
+            android:textSize="28sp"
+            android:maxLines="1"
+            android:paddingHorizontal="10dp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/sf_pro_display_bold"/>
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -23,7 +51,7 @@
         android:layout_margin="16dp"
         tools:listitem="@layout/product_item"
         android:layout_above="@+id/button_layout"
-        android:layout_below="@+id/txtTitle"/>
+        android:layout_below="@+id/app_title_layout"/>
 
 
     <LinearLayout

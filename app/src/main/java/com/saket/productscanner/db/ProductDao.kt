@@ -24,7 +24,13 @@ interface ProductDao {
     @Query("Update product SET quantity = (quantity + :quantity), dateModified = :dateModified WHERE productId = :productId")
     fun updatePedo(quantity: Int, dateModified: String, productId: String)
 
+
+    @Query("Update product SET quantity = :quantity, dateModified = :dateModified WHERE productId = :productId")
+    fun updateSingleQuantity(quantity: Int, dateModified: String, productId: String)
+
+
     fun insertOrUpdatePedo(product: Product){
+        Log.d(TAG, "${product.productName} ${product.quantity}")
         val items = getProductVerification(productId = product.productId)
         if (items != null) {
             Log.d(TAG, items.toString())
@@ -33,4 +39,5 @@ interface ProductDao {
             insertProduct(product)
         }
     }
+
 }

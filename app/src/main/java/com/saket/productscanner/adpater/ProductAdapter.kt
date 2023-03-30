@@ -9,17 +9,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.saket.productscanner.databinding.ProductItemBinding
 import com.saket.productscanner.models.Product
 
-class ProductAdapter(private val productLongPressed: (Product) -> Unit) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ComparatorDiffUtil()) {
+class ProductAdapter(private val productLongPressed: (Product) -> Unit, private val itemCounter: (Product) -> Unit) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ComparatorDiffUtil()) {
 
     inner class ProductViewHolder(private val binding:ProductItemBinding) :RecyclerView.ViewHolder(binding.root){
         fun bind(product: Product){
             binding.title.text = product.productName
-            binding.desc.text = "${product.productDescription} \n\nRs. ${product.productCost}"
+            binding.desc.text = "${product.productDescription} \n\nItem Cost : Rs. ${String.format("%.2f", product.productCost)}"
             binding.root.setOnLongClickListener{
                 productLongPressed(product)
                 true
             }
             binding.quantity.text = "${product.quantity}"
+            binding.increment.setOnClickListener {
+                product.quantity++
+                binding.total.text = "Total : Rs. ${String.format("%.2f", (product.productCost * product.quantity))}"
+                itemCounter(product)
+            }
+            binding.decrement.setOnClickListener {
+                if (product.quantity > 1){
+                    product.quantity--
+                    binding.total.text = "Total : Rs. ${String.format("%.2f", (product.productCost * product.quantity))}"
+                    itemCounter(product)
+                }
+            }
+            binding.total.text = "Total : Rs. ${String.format("%.2f", (product.productCost * product.quantity))}"
         }
     }
 

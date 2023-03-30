@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import com.saket.productscanner.db.ProductDatabase
 import com.saket.productscanner.models.Product
 import com.saket.productscanner.utils.Constants.TAG
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ProductRepository(
     private val productDatabase: ProductDatabase
@@ -24,6 +26,16 @@ class ProductRepository(
 
     }
 
+    fun updateQuantity(product: Product){
+        try {
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            val current = LocalDateTime.now().format(formatter)
+            productDatabase.productDao().updateSingleQuantity(product.quantity, current, product.productId)
+        } catch (e: Exception){
+            Log.d(TAG, e.message.toString())
+        }
+    }
+
     fun deleteProductsFromCart(product: Product){
         try {
             productDatabase.productDao().deleteProduct(product)
@@ -31,5 +43,6 @@ class ProductRepository(
             Log.d(TAG, e.message.toString())
         }
     }
+
 
 }
