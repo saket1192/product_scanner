@@ -223,12 +223,6 @@ class PhonePayQRFragment : Fragment() {
                 invoiceDetailsParagraph.alignment = Element.ALIGN_LEFT
                 document.add(invoiceDetailsParagraph)
 
-//            // Add the customer details
-//            val customerDetails =
-//                "PARTY'S NAME: -\nM/S ADLIFE MARKETING\nSARTIA VIHAR, NEW DELHI-110076\nGSTIN: 07AAFD8457JU3"
-//            val customerDetailsParagraph = Paragraph(customerDetails, font)
-//            customerDetailsParagraph.spacingBefore = 10f
-//            document.add(customerDetailsParagraph)
 
                 // Add the table of products
                 val table = PdfPTable(5)
