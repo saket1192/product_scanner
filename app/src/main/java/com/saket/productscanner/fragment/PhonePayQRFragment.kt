@@ -122,8 +122,8 @@ class PhonePayQRFragment : Fragment() {
 
 
         val transactionNote = "Test payment"
-        val payeeName = "Rama Krishna Palavancha"
-        val phoneNumber = "8861049395"
+        val payeeName = "Your Shop Name"
+        val phoneNumber = "Your mobile number"
         binding?.phonePayQr?.let {
             generateAndSetPhonePeQRCodeToImageView(totalSum, transactionNote, payeeName, phoneNumber,
                 it
@@ -210,7 +210,7 @@ class PhonePayQRFragment : Fragment() {
 
                 // Add the company details
                 val companyDetails =
-                    "Thrinethra Electricals\n2-78, Vandanam, VV Palem,\nChinthakani, Khanapuram, Haveli, Khammam\nTelangana, 507318\nGSTIN: 36AWAPP1390G1ZL"
+                    "Your Shop details"
                 val companyDetailsParagraph = Paragraph(companyDetails, font)
                 companyDetailsParagraph.spacingAfter = 10f
                 companyDetailsParagraph.alignment = Element.ALIGN_CENTER
